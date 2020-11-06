@@ -15,6 +15,7 @@ from prompt_toolkit.search import SearchDirection
 from prompt_toolkit.selection import PasteMode
 
 from .completion import display_completions_like_readline, generate_completions
+import re
 
 __all__ = [
     "get_by_name",
@@ -383,13 +384,13 @@ def kill_word(event: E) -> None:
 
 
 @register("unix-word-rubout")
-def unix_word_rubout(event: E, WORD: bool = True) -> None:
+def unix_word_rubout(event: E, WORD: bool = False) -> None:
     """
     Kill the word behind point, using whitespace as a word boundary.
     Usually bound to ControlW.
     """
     buff = event.current_buffer
-    pos = buff.document.find_start_of_previous_word(count=event.arg, WORD=WORD)
+    pos = buff.document.find_start_of_previous_word(count=event.arg, WORD=WORD, pattern=re.compile(r'(\S+\s+|[./]+)'))
 
     if pos is None:
         # Nothing found? delete until the start of the document.  (The
