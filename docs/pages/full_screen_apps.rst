@@ -66,7 +66,7 @@ I/O objects
 -----------
 
 Every :class:`~prompt_toolkit.application.Application` instance requires an I/O
-objects for input and output:
+object for input and output:
 
     - An :class:`~prompt_toolkit.input.Input` instance, which is an abstraction
       of the input stream (stdin).
@@ -78,7 +78,7 @@ default works fine.
 
 There is a third I/O object which is also required by the application, but not
 passed inside. This is the event loop, an
-:class:`~prompt_toolkit.eventloop.EventLoop` instance. This is basically a
+:class:`~prompt_toolkit.eventloop` instance. This is basically a
 while-true loop that waits for user input, and when it receives something (like
 a key press), it will send that to the the appropriate handler, like for
 instance, a key binding.
@@ -131,10 +131,9 @@ abstraction.
 
 - A higher level abstraction of building a layout is by using "widgets". A
   widget is a reusable layout component that can contain multiple containers
-  and controls. It should have a ``__pt__container__`` function, which is
-  supposed to return the root container for this widget. Prompt_toolkit
-  contains a couple of widgets like
-  :class:`~prompt_toolkit.widgets.TextArea`,
+  and controls. Widgets have a ``__pt__container__`` function, which returns
+  the root container for this widget. Prompt_toolkit contains a couple of
+  widgets like :class:`~prompt_toolkit.widgets.TextArea`,
   :class:`~prompt_toolkit.widgets.Button`,
   :class:`~prompt_toolkit.widgets.Frame`,
   :class:`~prompt_toolkit.widgets.VerticalLine` and so on.
@@ -234,7 +233,7 @@ condition is satisfied, use a
 Focusing windows
 ^^^^^^^^^^^^^^^^^
 
-Focussing something can be done by calling the
+Focusing something can be done by calling the
 :meth:`~prompt_toolkit.layout.Layout.focus` method. This method is very
 flexible and accepts a :class:`~prompt_toolkit.layout.Window`, a
 :class:`~prompt_toolkit.buffer.Buffer`, a
@@ -315,7 +314,7 @@ the key handler:
     app.run()
 
 The callback function is named ``exit_`` for clarity, but it could have been
-named ``_`` (underscore) as well, because the we won't refer to this name.
+named ``_`` (underscore) as well, because we won't refer to this name.
 
 :ref:`Read more about key bindings ...<key_bindings>`
 
@@ -323,11 +322,18 @@ named ``_`` (underscore) as well, because the we won't refer to this name.
 Modal containers
 ^^^^^^^^^^^^^^^^
 
-All container objects, like :class:`~prompt_toolkit.layout.VSplit` and
-:class:`~prompt_toolkit.layout.HSplit` take a ``modal`` argument.
+The following container objects take a ``modal`` argument
+:class:`~prompt_toolkit.layout.VSplit`,
+:class:`~prompt_toolkit.layout.HSplit`, and
+:class:`~prompt_toolkit.layout.FloatContainer`.
 
-If this flag has been set, then key bindings from the parent account are not
-taken into account if one of the children windows has the focus.
+Setting ``modal=True`` makes what is called a **modal** container. Normally, a
+child container would inherit its parent key bindings. This does not apply to
+**modal** containers.
+
+Consider a **modal** container (e.g. :class:`~prompt_toolkit.layout.VSplit`)
+is child of another container, its parent. Any key bindings from the parent
+are not taken into account if the **modal** container (child) has the focus.
 
 This is useful in a complex layout, where many controls have their own key
 bindings, but you only want to enable the key bindings for a certain region of

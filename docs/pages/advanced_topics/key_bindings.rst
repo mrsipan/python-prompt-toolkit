@@ -35,7 +35,7 @@ Key bindings can be defined as follows by creating a
     :kbd:`c-s` is pressed, until :kbd:`c-q` is pressed. It won't be possible to
     bind these keys.
 
-    In order to disable this, execute type the following in your shell, or even
+    In order to disable this, execute the following command in your shell, or even
     add it to your `.bashrc`.
 
     .. code::
@@ -334,6 +334,6 @@ information.
 Processing `.inputrc`
 ---------------------
 
-GNU readline can be configured using an `.inputrc` configuration file. This can
-could key bindings as well as certain settings. Right now, prompt_toolkit
-doesn't support `.inputrc` yet, but it should be possible in the future.
+GNU readline can be configured using an `.inputrc` configuration file. This file
+contains key bindings as well as certain settings. Right now, prompt_toolkit
+doesn't support `.inputrc`, but it should be possible in the future.

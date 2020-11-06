@@ -12,8 +12,8 @@ inspired by `tqdm <https://github.com/tqdm/tqdm>`_
     possibly change in the future. It is usable and tested, but keep this in
     mind when upgrading.
 
-Remember that the examples directory of the prompt_toolkit repository ships
-with many progress bar examples as well.
+Remember that the `examples directory <https://github.com/prompt-toolkit/python-prompt-toolkit/tree/master/examples>`_
+of the prompt_toolkit repository ships with many progress bar examples as well.
 
 
 Simple progress bar
@@ -201,7 +201,9 @@ passing a :class:`~prompt_toolkit.key_binding.KeyBindings` object:
     from prompt_toolkit.patch_stdout import patch_stdout
     from prompt_toolkit.shortcuts import ProgressBar
 
+    import os
     import time
+    import signal
 
     bottom_toolbar = HTML(' <b>[f]</b> Print "f" <b>[x]</b> Abort.')
 
